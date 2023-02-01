@@ -8,26 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace InlamingsUppgiftDBKurs
 {
-
-    public partial class EditPlayerForm : Form
+    public partial class DeletePlayerFromDB : Form
     {
         MySqlConnection conn;
 
-        //Får ett error när jag skriver koden på detta sättet
-        //TextBox[] textBox;
-        //Men problemet blir löst när jag lägger till System.Windows.Forms innan
-        private System.Windows.Forms.TextBox[] textBox;
-        private System.Windows.Forms.ComboBox[] comboBox;
 
-        public EditPlayerForm()
+        public DeletePlayerFromDB()
         {
             InitializeComponent();
 
-            //Skapa en MySQL connection objekt
+            // Skapa en MySQL connection objekt
             string server = "localhost";
             string database = "handballdb";
             string user = "root";
@@ -37,18 +30,11 @@ namespace InlamingsUppgiftDBKurs
 
             conn = new MySqlConnection(connString);
 
-            //Skapa en array referens för input fälten
-            textBox = new System.Windows.Forms.TextBox[] { txtboxplayerFirstName, txtboxplayerLastName, txtboxAge, txtboxPlayerNumber, txtboxPhonenumber, txtboxEmailAdress, txtboxSeachFirstName, txtboxSearchLastName };
-            comboBox = new System.Windows.Forms.ComboBox[] { comboboxPlayerPosition, comboBoxLeague, comboBoxTeam, comboBoxCountry };
         }
 
-        private void EditPlayerForm_Load(object sender, EventArgs e)
+        private void DeletePlayerFromDB_Load(object sender, EventArgs e)
         {
             HideInput();
-            SelectCountryFromDB();
-            SelectTeamFromDB();
-            SelectLeagueFromDB();
-            SelectPlayerPositionFromDB();
         }
 
         private void HideInput()
@@ -106,6 +92,11 @@ namespace InlamingsUppgiftDBKurs
             txtboxPhonenumber.Show();
             txtboxEmailAdress.Show();
             btnUpdatePlayer.Show();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SelectPlayerFromDB();
         }
 
         private void SelectPlayerFromDB()
@@ -176,7 +167,7 @@ namespace InlamingsUppgiftDBKurs
                 }
                 else
                 {
-                    //HideInput();
+                    HideInput();
                     MessageBox.Show($"No player with {firstName} and {lastName} exist in the database.");
                 }
 
@@ -189,187 +180,37 @@ namespace InlamingsUppgiftDBKurs
             }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            SelectPlayerFromDB();
-        }
-
-
-        private void SelectCountryFromDB()
-        {
-            //MySQL query
-            string sqlQuery = "CALL selectCountry();";
-
-            //MySQL kommando
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            //Exekvera kommando mot databasen och få tillbaka data
-            try
-            {
-                //Öppna
-                conn.Open();
-
-                //Exekvera kommandot
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    comboBoxCountry.Items.Add((string)reader["country_name"]);
-                }
-
-                //Stänga
-                conn.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
-        private void SelectTeamFromDB()
-        {
-            //MySQL query
-            string sqlQuery = "CALL selectTeam();";
-
-            //MySQL kommando
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            //Exekvera kommando mot databasen och få tillbaka data
-            try
-            {
-                //Öppna
-                conn.Open();
-
-                //Exekvera kommandot
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    comboBoxTeam.Items.Add((string)reader["team_name"]);
-                }
-
-                //Stänga
-                conn.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
-        private void SelectLeagueFromDB()
-        {
-            //MySQL query
-            string sqlQuery = "CALL selectLeague();";
-
-            //MySQL kommando
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            //Exekvera kommando mot databasen och få tillbaka data
-            try
-            {
-                //Öppna
-                conn.Open();
-
-                //Exekvera kommandot
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    comboBoxLeague.Items.Add((string)reader["league_name"]);
-                }
-
-                //Stänga
-                conn.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
-        private void SelectPlayerPositionFromDB()
-        {
-            //MySQL query
-            string sqlQuery = "CALL selectPlayerPosition();";
-
-            //MySQL kommando
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            //Exekvera kommando mot databasen och få tillbaka data
-            try
-            {
-                //Öppna
-                conn.Open();
-
-                //Exekvera kommandot
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    comboboxPlayerPosition.Items.Add((string)reader["position_name"]);
-                }
-
-                //Stänga
-                conn.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
-        private void UpdatePlayerToDB()
-        {
-            //Samla in datan och placera det i en sträng
-            int playerId = Convert.ToInt32(txtplayerId.Text);
-            string playerFirstName = txtboxplayerFirstName.Text;
-            string playerLastName = txtboxplayerLastName.Text;
-            int playerAge = Convert.ToInt32(txtboxAge.Text);
-            int playerNumber = Convert.ToInt32(txtboxPlayerNumber.Text);
-            int playerPosition = comboboxPlayerPosition.SelectedIndex +1;
-            int playerLeague = comboBoxLeague.SelectedIndex +1;
-            int playerTeam = comboBoxTeam.SelectedIndex +1;
-            int playerCountry = comboBoxCountry.SelectedIndex +1;
-            int playerContactId = Convert.ToInt32(txtContactId.Text);
-            string playerContactPhonenumber = txtboxPhonenumber.Text;
-            string playerEmailAddress = txtboxEmailAdress.Text;
-
-            string sqlQuery = $"CALL updatePlayer({playerId}, '{playerFirstName}', '{playerLastName}', {playerAge}, {playerNumber}, {playerPosition}, {playerLeague}, {playerTeam}, {playerCountry}); CALL updateContact({playerContactId}, '{playerContactPhonenumber}', '{playerEmailAddress}');";
-
-            //MessageBox.Show($"{sqlQuery}");
-
-            //Bygga upp MySQL kommandot
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            //Exekvera kommandot
-            try
-            {
-                //Öppna koppling
-                conn.Open();
-
-                //Utför kommando
-                cmd.ExecuteReader();
-
-                //Stäng koppling
-                conn.Close();
-
-                MessageBox.Show("Spelaren har blivit updaterad i databasen!");
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-
-        }
-
         private void btnUpdatePlayer_Click(object sender, EventArgs e)
         {
-            UpdatePlayerToDB();
+            DeletePlayer();
         }
+
+        private void DeletePlayer()
+        {
+            int playerId = Convert.ToInt32(txtplayerId.Text);
+
+            string playerFirstName = txtboxplayerFirstName.Text;
+            string playerLastName = txtboxplayerLastName.Text;
+
+            string sqlQuery = $"CALL deletePlayer({playerId})";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteReader();
+
+                conn.Close();
+
+                MessageBox.Show($"{playerFirstName} {playerLastName} har blivit raderar från databasen");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
     }
 }
-
-
-

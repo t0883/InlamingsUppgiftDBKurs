@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,12 +16,24 @@ namespace InlamingsUppgiftDBKurs
     public partial class MainForm : Form
     {
 
+        MySqlConnection conn;
+
         private Stopwatch stopWatch;
 
         
         public MainForm()
         {
             InitializeComponent();
+
+            //Skapa en MySQL connection objekt
+            string server = "localhost";
+            string database = "handballdb";
+            string user = "root";
+            string password = "!Phuglife9835";
+
+            string connString = $"SERVER={server};DATABASE={database};UID={user};PASSWORD={password};";
+
+            conn = new MySqlConnection(connString);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -113,6 +126,10 @@ namespace InlamingsUppgiftDBKurs
             btnAwayteamScore.Enabled = false;
             btnWithdrawHometeam.Enabled = false;
             btnWithdrawAwayteam.Enabled = false;
+
+            SelectTeamFromDB();
+            SelectLeagueFromDB();
+
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -130,6 +147,10 @@ namespace InlamingsUppgiftDBKurs
             lblCurrentHalf.Text = "Current half: 1";
 
             btnStartClock.Enabled = true;
+
+            comboboxHomeTeam.SelectedIndex = -1;
+            comboboxAwayTeam.SelectedIndex = -1;
+            comboboxleague.SelectedIndex = -1;
         }
 
         private void btnWithdrawHometeam_Click(object sender, EventArgs e)
@@ -169,6 +190,90 @@ namespace InlamingsUppgiftDBKurs
             EditPlayerForm editPlayerForm = new EditPlayerForm();
 
             editPlayerForm.Show();
+        }
+
+        private void viewPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewAllPlayersInDB viewAllPlayersInDB = new ViewAllPlayersInDB();
+
+            viewAllPlayersInDB.Show();
+        }
+
+        private void viewTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewAllTeamsInDB viewAllTeamsInDB = new ViewAllTeamsInDB();
+
+            viewAllTeamsInDB.Show();
+        }
+
+        private void deletePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeletePlayerFromDB deletePlayerFromDB = new DeletePlayerFromDB();
+
+            deletePlayerFromDB.Show();
+        }
+
+        private void SelectTeamFromDB()
+        {
+            //MySQL query
+            string sqlQuery = "CALL selectTeam();";
+
+            //MySQL kommando
+            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+
+            //Exekvera kommando mot databasen och få tillbaka data
+            try
+            {
+                //Öppna
+                conn.Open();
+
+                //Exekvera kommandot
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    comboboxAwayTeam.Items.Add((string)reader["team_name"]);
+                    comboboxHomeTeam.Items.Add((string)reader["team_name"]);
+                }
+
+                //Stänga
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void SelectLeagueFromDB()
+        {
+            //MySQL query
+            string sqlQuery = "CALL selectLeague();";
+
+            //MySQL kommando
+            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+
+            //Exekvera kommando mot databasen och få tillbaka data
+            try
+            {
+                //Öppna
+                conn.Open();
+
+                //Exekvera kommandot
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    comboboxleague.Items.Add((string)reader["league_name"]);
+                }
+
+                //Stänga
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }
