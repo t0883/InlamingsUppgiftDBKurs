@@ -38,12 +38,13 @@ namespace InlamingsUppgiftDBKurs
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Stänger ner programmet när man trycker på exitknappen
             this.Close();
         }
 
         private void btnStartClock_Click(object sender, EventArgs e)
         {
-
+            //Startat klockan om den är stoppad
             if (btnStartClock.Text == "STOP CLOCK")
             {
                 stopWatch.Stop();
@@ -55,6 +56,8 @@ namespace InlamingsUppgiftDBKurs
                 return;
             }
             stopWatch.Start();
+
+            //Tillåter användaren att mata in mål under speltid
 
             btnHometeamScore.Enabled = true;
             btnAwayteamScore.Enabled = true;
@@ -68,6 +71,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void btnAwayteamScore_Click(object sender, EventArgs e)
         {
+            //Plus mål för bortalaget
+
             int score = Convert.ToInt32(lblAwayteamScore.Text);
 
             score++;
@@ -77,6 +82,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void btnHometeamScore_Click(object sender, EventArgs e)
         {
+            //Plus mål för hemmalaget
+
             int score = Convert.ToInt32(lblHometeamScore.Text);
 
             score++;
@@ -89,24 +96,31 @@ namespace InlamingsUppgiftDBKurs
         {
             this.lblTimer.Text = string.Format("{0:mm\\:ss}", stopWatch.Elapsed);
 
+            //Har ställt in tiden så att den bara går upp till 2 sekunder, detta kan man ändra sen till 30 minuter men för testandet så har jag ställ in det till 2 sekunder
+
             if (lblTimer.Text == "00:02" && lblCurrentHalf.Text == "Current half: 2")
             {
+
+                //Stoppar användaren från att mata in fler mål efter stopptid
                 btnHometeamScore.Enabled = false;
                 btnAwayteamScore.Enabled = false;
                 btnStartClock.Enabled = false;
                 btnWithdrawHometeam.Enabled = false;
                 btnWithdrawAwayteam.Enabled = false;
 
+                //Stoppar klockan
                 stopWatch.Stop();
                 //stopWatch.Restart();
                 lblCurrentHalf.Text = "Game Over";
             }
             else if (lblTimer.Text == "00:02" && lblCurrentHalf.Text == "Current half: 1")
             {
+                //Återställer klockan till 00:00
                 stopWatch.Reset();
                 lblCurrentHalf.Text = "Current half: 2";
                 btnStartClock.Text = "START CLOCK";
 
+                //Stoppar användaren från att mata in fler mål efter stopptid
                 btnHometeamScore.Enabled = false;
                 btnAwayteamScore.Enabled = false;
                 //btnStartClock.Enabled = false;
@@ -127,6 +141,7 @@ namespace InlamingsUppgiftDBKurs
             btnWithdrawHometeam.Enabled = false;
             btnWithdrawAwayteam.Enabled = false;
 
+            //Hämtar lagen och ligorna från databasen
             SelectTeamFromDB();
             SelectLeagueFromDB();
 
@@ -134,6 +149,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Återställ hela formuläret
+
             lblHometeamScore.Text = "0";
 
             lblAwayteamScore.Text = "0";
@@ -155,6 +172,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void btnWithdrawHometeam_Click(object sender, EventArgs e)
         {
+            //Minus mål för hemmalaget
+
             int score = Convert.ToInt32(lblHometeamScore.Text);
 
             score--;
@@ -164,6 +183,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void btnWithdrawAwayteam_Click(object sender, EventArgs e)
         {
+            //Minus mål för bortalaget
+
             int score = Convert.ToInt32(lblAwayteamScore.Text);
 
             score--;
@@ -173,6 +194,8 @@ namespace InlamingsUppgiftDBKurs
 
         private void btnResetClock_Click(object sender, EventArgs e)
         {
+            //Starta om klockan
+
             lblTimer.Text = "00:00";
             stopWatch.Reset();
             btnStartClock.Text = "START CLOCK";
@@ -274,6 +297,13 @@ namespace InlamingsUppgiftDBKurs
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        private void searchPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchPlayerForm searchPlayerForm = new SearchPlayerForm();
+            
+            searchPlayerForm.Show();
         }
     }
 }

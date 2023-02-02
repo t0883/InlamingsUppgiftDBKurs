@@ -32,41 +32,34 @@ namespace InlamingsUppgiftDBKurs
 
         private void ViewAllPlayersInDB_Load(object sender, EventArgs e)
         {
+            //Skapar SQL query
             string sqlQuery = "CALL selectAllPlayers()";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
 
             try
             {
+                //Öppna anslutningen
                 conn.Open();
 
+                //Exekverar kommandot
                 MySqlDataReader reader = cmd.ExecuteReader();
 
+                //Skapar ett DataTable objekt
                 DataTable dt = new DataTable();
+
+                //Lastar objektet med data
                 dt.Load(reader);
 
-                dataGridView1.DataSource= dt;
+                //Lägger in datan från DataTable objektet i gridviewn
+                dataGridView1.DataSource = dt;
 
-                reader = cmd.ExecuteReader();
-
-                while(reader.Read())
-                {
-                    string firstName = reader["player_firstName"].ToString();
-                    string lastName = reader["player_lastName"].ToString();
-                    int age = Convert.ToInt32(reader["player_age"]);
-                    int playerNumber = Convert.ToInt32(reader["player_number"]);
-                    string playerPosition = reader["position_name"].ToString();
-                    string league = reader["league_name"].ToString();
-                    string team = reader["team_name"].ToString();
-                    string country = reader["country_name"].ToString();
-                    string contactPhonenumber = reader["contact_Phonenumber"].ToString();
-                    string contactEmailAdress = reader["contact_EmailAdress"].ToString();
-                }
-
+                //Stäng anslutningen
                 conn.Close();
             }
             catch (Exception b)
             {
+                //Eventuella felmeddelande
                 MessageBox.Show(b.Message);
             }
         }

@@ -95,7 +95,7 @@ namespace InlamingsUppgiftDBKurs
             string phoneNumber = txtboxPhonenumber.Text;
             string emailAdress = txtboxEmailAdress.Text;
 
-            MessageBox.Show($"{firstName}, {lastName}, {age}, {playerNumber}, {playerPosition}, {league}, {team}, {country}, {phoneNumber}, {emailAdress}");
+            //MessageBox.Show($"{firstName}, {lastName}, {age}, {playerNumber}, {playerPosition}, {league}, {team}, {country}, {phoneNumber}, {emailAdress}");
             //Föra in det i databasen
             string sqlQuery = $"CALL insertNewPlayerWithNewContact('{firstName}', '{lastName}', {age}, {playerNumber}, {playerPosition}, {league}, {team}, {country}, '{phoneNumber}', '{emailAdress}');";
 

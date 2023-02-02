@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace InlamingsUppgiftDBKurs
 {
-    public partial class DeletePlayerFromDB : Form
+    public partial class SearchPlayerForm : Form
     {
         MySqlConnection conn;
 
-
-        public DeletePlayerFromDB()
+        public SearchPlayerForm()
         {
             InitializeComponent();
 
@@ -29,10 +28,9 @@ namespace InlamingsUppgiftDBKurs
             string connString = $"SERVER={server};DATABASE={database};UID={user};PASSWORD={password};";
 
             conn = new MySqlConnection(connString);
-
         }
 
-        private void DeletePlayerFromDB_Load(object sender, EventArgs e)
+        private void SearchPlayerForm_Load(object sender, EventArgs e)
         {
             HideInput();
         }
@@ -64,7 +62,6 @@ namespace InlamingsUppgiftDBKurs
             txtboxPhonenumber.Hide();
             txtboxEmailAdress.Hide();
             txtContactId.Hide();
-            btnUpdatePlayer.Hide();
 
         }
 
@@ -91,12 +88,6 @@ namespace InlamingsUppgiftDBKurs
             comboBoxCountry.Show();
             txtboxPhonenumber.Show();
             txtboxEmailAdress.Show();
-            btnUpdatePlayer.Show();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            SelectPlayerFromDB();
         }
 
         private void SelectPlayerFromDB()
@@ -167,7 +158,6 @@ namespace InlamingsUppgiftDBKurs
                 }
                 else
                 {
-                    HideInput();
                     MessageBox.Show($"No player with {firstName} and {lastName} exist in the database.");
                 }
 
@@ -180,37 +170,26 @@ namespace InlamingsUppgiftDBKurs
             }
         }
 
-        private void btnUpdatePlayer_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            DeletePlayer();
+            SelectPlayerFromDB();
         }
 
-        private void DeletePlayer()
+        private void DisableInput()
         {
-            int playerId = Convert.ToInt32(txtplayerId.Text);
-
-            string playerFirstName = txtboxplayerFirstName.Text;
-            string playerLastName = txtboxplayerLastName.Text;
-
-            string sqlQuery = $"CALL deletePlayer({playerId})";
-
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
-
-            try
-            {
-                conn.Open();
-
-                cmd.ExecuteReader();
-
-                conn.Close();
-
-                MessageBox.Show($"{playerFirstName} {playerLastName} har blivit raderad från databasen");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            //Gör så att användaren inte kan editera innehåller när den endast söker efter en specifik spelare
+            //Använder inte denna funktionen då man kan sätta värdena direkt i properties fönstret i designläget
+            txtplayerId.Enabled= false;
+            txtboxplayerFirstName.Enabled= false;
+            txtboxplayerLastName.Enabled= false;
+            txtboxAge.Enabled= false;
+            txtboxPlayerNumber.Enabled= false;
+            comboboxPlayerPosition.Enabled= false;
+            comboBoxLeague.Enabled= false;
+            comboBoxTeam.Enabled= false;
+            comboBoxCountry.Enabled= false;
+            txtboxPhonenumber.Enabled= false;
+            txtboxEmailAdress.Enabled= false;
         }
-
     }
 }

@@ -37,9 +37,6 @@
             this.addPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deletePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,19 +47,20 @@
             this.btnStartClock = new System.Windows.Forms.Button();
             this.lblAwayteamScore = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblHometeamScore = new System.Windows.Forms.Label();
-            this.lblTimer = new System.Windows.Forms.Label();
-            this.btnWithdrawHometeam = new System.Windows.Forms.Button();
             this.btnWithdrawAwayteam = new System.Windows.Forms.Button();
-            this.lblCurrentHalf = new System.Windows.Forms.Label();
-            this.btnResetClock = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.comboboxleague = new System.Windows.Forms.ComboBox();
             this.comboboxAwayTeam = new System.Windows.Forms.ComboBox();
+            this.btnResetClock = new System.Windows.Forms.Button();
+            this.lblTimer = new System.Windows.Forms.Label();
+            this.lblCurrentHalf = new System.Windows.Forms.Label();
+            this.btnWithdrawHometeam = new System.Windows.Forms.Button();
+            this.lblHometeamScore = new System.Windows.Forms.Label();
             this.comboboxHomeTeam = new System.Windows.Forms.ComboBox();
+            this.comboboxleague = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.searchPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -108,9 +106,7 @@
             this.addPlayerToolStripMenuItem,
             this.editPlayerToolStripMenuItem,
             this.deletePlayerToolStripMenuItem,
-            this.addTeamToolStripMenuItem,
-            this.editTeamToolStripMenuItem,
-            this.deleteTeamToolStripMenuItem});
+            this.searchPlayerToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -118,41 +114,23 @@
             // addPlayerToolStripMenuItem
             // 
             this.addPlayerToolStripMenuItem.Name = "addPlayerToolStripMenuItem";
-            this.addPlayerToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.addPlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addPlayerToolStripMenuItem.Text = "Add player";
             this.addPlayerToolStripMenuItem.Click += new System.EventHandler(this.addPlayerToolStripMenuItem_Click);
             // 
             // editPlayerToolStripMenuItem
             // 
             this.editPlayerToolStripMenuItem.Name = "editPlayerToolStripMenuItem";
-            this.editPlayerToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.editPlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editPlayerToolStripMenuItem.Text = "Edit player";
             this.editPlayerToolStripMenuItem.Click += new System.EventHandler(this.editPlayerToolStripMenuItem_Click);
             // 
             // deletePlayerToolStripMenuItem
             // 
             this.deletePlayerToolStripMenuItem.Name = "deletePlayerToolStripMenuItem";
-            this.deletePlayerToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.deletePlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deletePlayerToolStripMenuItem.Text = "Delete player";
             this.deletePlayerToolStripMenuItem.Click += new System.EventHandler(this.deletePlayerToolStripMenuItem_Click);
-            // 
-            // addTeamToolStripMenuItem
-            // 
-            this.addTeamToolStripMenuItem.Name = "addTeamToolStripMenuItem";
-            this.addTeamToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.addTeamToolStripMenuItem.Text = "Add team";
-            // 
-            // editTeamToolStripMenuItem
-            // 
-            this.editTeamToolStripMenuItem.Name = "editTeamToolStripMenuItem";
-            this.editTeamToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.editTeamToolStripMenuItem.Text = "Edit team";
-            // 
-            // deleteTeamToolStripMenuItem
-            // 
-            this.deleteTeamToolStripMenuItem.Name = "deleteTeamToolStripMenuItem";
-            this.deleteTeamToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.deleteTeamToolStripMenuItem.Text = "Delete team";
             // 
             // viewToolStripMenuItem
             // 
@@ -166,14 +144,14 @@
             // viewPlayerToolStripMenuItem
             // 
             this.viewPlayerToolStripMenuItem.Name = "viewPlayerToolStripMenuItem";
-            this.viewPlayerToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.viewPlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewPlayerToolStripMenuItem.Text = "View player";
             this.viewPlayerToolStripMenuItem.Click += new System.EventHandler(this.viewPlayerToolStripMenuItem_Click);
             // 
             // viewTeamToolStripMenuItem
             // 
             this.viewTeamToolStripMenuItem.Name = "viewTeamToolStripMenuItem";
-            this.viewTeamToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.viewTeamToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewTeamToolStripMenuItem.Text = "View team";
             this.viewTeamToolStripMenuItem.Click += new System.EventHandler(this.viewTeamToolStripMenuItem_Click);
             // 
@@ -280,39 +258,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(776, 411);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
-            // lblHometeamScore
-            // 
-            this.lblHometeamScore.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblHometeamScore.AutoSize = true;
-            this.lblHometeamScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHometeamScore.Location = new System.Drawing.Point(103, 212);
-            this.lblHometeamScore.Name = "lblHometeamScore";
-            this.lblHometeamScore.Size = new System.Drawing.Size(51, 55);
-            this.lblHometeamScore.TabIndex = 2;
-            this.lblHometeamScore.Text = "0";
-            // 
-            // lblTimer
-            // 
-            this.lblTimer.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimer.Location = new System.Drawing.Point(314, 212);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(145, 55);
-            this.lblTimer.TabIndex = 2;
-            this.lblTimer.Text = "00:00";
-            // 
-            // btnWithdrawHometeam
-            // 
-            this.btnWithdrawHometeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWithdrawHometeam.Location = new System.Drawing.Point(3, 345);
-            this.btnWithdrawHometeam.Name = "btnWithdrawHometeam";
-            this.btnWithdrawHometeam.Size = new System.Drawing.Size(252, 55);
-            this.btnWithdrawHometeam.TabIndex = 1;
-            this.btnWithdrawHometeam.Text = "Withdraw goal";
-            this.btnWithdrawHometeam.UseVisualStyleBackColor = true;
-            this.btnWithdrawHometeam.Click += new System.EventHandler(this.btnWithdrawHometeam_Click);
-            // 
             // btnWithdrawAwayteam
             // 
             this.btnWithdrawAwayteam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -325,16 +270,14 @@
             this.btnWithdrawAwayteam.UseVisualStyleBackColor = true;
             this.btnWithdrawAwayteam.Click += new System.EventHandler(this.btnWithdrawAwayteam_Click);
             // 
-            // lblCurrentHalf
+            // comboboxAwayTeam
             // 
-            this.lblCurrentHalf.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblCurrentHalf.AutoSize = true;
-            this.lblCurrentHalf.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentHalf.Location = new System.Drawing.Point(313, 159);
-            this.lblCurrentHalf.Name = "lblCurrentHalf";
-            this.lblCurrentHalf.Size = new System.Drawing.Size(148, 25);
-            this.lblCurrentHalf.TabIndex = 4;
-            this.lblCurrentHalf.Text = "Current half: 1";
+            this.comboboxAwayTeam.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboboxAwayTeam.FormattingEnabled = true;
+            this.comboboxAwayTeam.Location = new System.Drawing.Point(585, 161);
+            this.comboboxAwayTeam.Name = "comboboxAwayTeam";
+            this.comboboxAwayTeam.Size = new System.Drawing.Size(121, 21);
+            this.comboboxAwayTeam.TabIndex = 5;
             // 
             // btnResetClock
             // 
@@ -347,28 +290,49 @@
             this.btnResetClock.UseVisualStyleBackColor = true;
             this.btnResetClock.Click += new System.EventHandler(this.btnResetClock_Click);
             // 
-            // timer1
+            // lblTimer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.lblTimer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimer.Location = new System.Drawing.Point(314, 212);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(145, 55);
+            this.lblTimer.TabIndex = 2;
+            this.lblTimer.Text = "00:00";
             // 
-            // comboboxleague
+            // lblCurrentHalf
             // 
-            this.comboboxleague.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboboxleague.FormattingEnabled = true;
-            this.comboboxleague.Location = new System.Drawing.Point(326, 93);
-            this.comboboxleague.Name = "comboboxleague";
-            this.comboboxleague.Size = new System.Drawing.Size(121, 21);
-            this.comboboxleague.TabIndex = 5;
+            this.lblCurrentHalf.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblCurrentHalf.AutoSize = true;
+            this.lblCurrentHalf.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentHalf.Location = new System.Drawing.Point(313, 159);
+            this.lblCurrentHalf.Name = "lblCurrentHalf";
+            this.lblCurrentHalf.Size = new System.Drawing.Size(148, 25);
+            this.lblCurrentHalf.TabIndex = 4;
+            this.lblCurrentHalf.Text = "Current half: 1";
             // 
-            // comboboxAwayTeam
+            // btnWithdrawHometeam
             // 
-            this.comboboxAwayTeam.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboboxAwayTeam.FormattingEnabled = true;
-            this.comboboxAwayTeam.Location = new System.Drawing.Point(585, 161);
-            this.comboboxAwayTeam.Name = "comboboxAwayTeam";
-            this.comboboxAwayTeam.Size = new System.Drawing.Size(121, 21);
-            this.comboboxAwayTeam.TabIndex = 5;
+            this.btnWithdrawHometeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWithdrawHometeam.Location = new System.Drawing.Point(3, 345);
+            this.btnWithdrawHometeam.Name = "btnWithdrawHometeam";
+            this.btnWithdrawHometeam.Size = new System.Drawing.Size(252, 55);
+            this.btnWithdrawHometeam.TabIndex = 1;
+            this.btnWithdrawHometeam.Text = "Withdraw goal";
+            this.btnWithdrawHometeam.UseVisualStyleBackColor = true;
+            this.btnWithdrawHometeam.Click += new System.EventHandler(this.btnWithdrawHometeam_Click);
+            // 
+            // lblHometeamScore
+            // 
+            this.lblHometeamScore.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblHometeamScore.AutoSize = true;
+            this.lblHometeamScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHometeamScore.Location = new System.Drawing.Point(103, 212);
+            this.lblHometeamScore.Name = "lblHometeamScore";
+            this.lblHometeamScore.Size = new System.Drawing.Size(51, 55);
+            this.lblHometeamScore.TabIndex = 2;
+            this.lblHometeamScore.Text = "0";
             // 
             // comboboxHomeTeam
             // 
@@ -378,6 +342,15 @@
             this.comboboxHomeTeam.Name = "comboboxHomeTeam";
             this.comboboxHomeTeam.Size = new System.Drawing.Size(121, 21);
             this.comboboxHomeTeam.TabIndex = 5;
+            // 
+            // comboboxleague
+            // 
+            this.comboboxleague.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboboxleague.FormattingEnabled = true;
+            this.comboboxleague.Location = new System.Drawing.Point(326, 93);
+            this.comboboxleague.Name = "comboboxleague";
+            this.comboboxleague.Size = new System.Drawing.Size(121, 21);
+            this.comboboxleague.TabIndex = 5;
             // 
             // label2
             // 
@@ -411,6 +384,18 @@
             this.label5.Size = new System.Drawing.Size(124, 18);
             this.label5.TabIndex = 6;
             this.label5.Text = "Select away team";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // searchPlayerToolStripMenuItem
+            // 
+            this.searchPlayerToolStripMenuItem.Name = "searchPlayerToolStripMenuItem";
+            this.searchPlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchPlayerToolStripMenuItem.Text = "Search player";
+            this.searchPlayerToolStripMenuItem.Click += new System.EventHandler(this.searchPlayerToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -451,9 +436,6 @@
         private System.Windows.Forms.Label lblAwayteamScore;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblHometeamScore;
-        private System.Windows.Forms.ToolStripMenuItem addTeamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editTeamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteTeamToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewTeamToolStripMenuItem;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.Timer timer1;
@@ -468,6 +450,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem searchPlayerToolStripMenuItem;
     }
 }
 
