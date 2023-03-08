@@ -31,7 +31,7 @@ namespace InlamingsUppgiftDBKurs
             string server = "localhost";
             string database = "handballdb";
             string user = "root";
-            string password = "!Phuglife9835";
+            string password = "";
 
             string connString = $"SERVER={server};DATABASE={database};UID={user};PASSWORD={password};";
 
